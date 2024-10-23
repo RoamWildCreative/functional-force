@@ -1,0 +1,52 @@
+<!-- todoList.html -->
+<template>
+    <lightning-card title="Immutable Todo List">
+        <div class="slds-p-around_medium">
+            <lightning-layout>
+                <lightning-layout-item flexibility="grow">
+                    <lightning-input 
+                        type="text"
+                        label="New Todo"
+                        value={newTodoText}
+                        onchange={handleInputChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-p-left_small">
+                    <lightning-button 
+                        label="Add"
+                        onclick={handleAddTodo}>
+                    </lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <ul class="slds-has-dividers_around-space slds-p-top_medium">
+                <template for:each={todos} for:item="todo">
+                    <li key={todo.id} class="slds-p-around_small">
+                        <lightning-layout vertical-align="center">
+                            <lightning-layout-item>
+                                <lightning-input 
+                                    type="checkbox"
+                                    checked={todo.completed}
+                                    data-todo-id={todo.id}
+                                    onchange={handleToggle}>
+                                </lightning-input>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="grow" 
+                                class={todo.completed ? 'slds-text-color_weak slds-text-title_caps' : ''}>
+                                {todo.text}
+                            </lightning-layout-item>
+                            <lightning-layout-item>
+                                <lightning-button-icon 
+                                    icon-name="utility:delete"
+                                    data-todo-id={todo.id}
+                                    onclick={handleRemove}
+                                    alternative-text="Delete">
+                                </lightning-button-icon>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </lightning-card>
+</template>
